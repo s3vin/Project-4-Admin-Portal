@@ -575,9 +575,30 @@ const RoleManagementApp = {
         document.body.appendChild(modal);
     },
 
-    async exportAudit() {
-        const token = localStorage.getItem('token');
-        window.open(`${API_URL}/audit/export?token=${token}`, '_blank');
+        async exportAudit() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/audit/export`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'audit-logs.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } else {
+                alert('Error exporting audit logs');
+            }
+        } catch (error) {
+            console.error('Export error:', error);
+            alert('Error exporting audit logs');
+        }
     },
 
     async compareRoles() {
