@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4598c9 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -64,7 +64,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4598c9 0%, #ffffff 100%);
             color: white;
             border: none;
             border-radius: 5px;
@@ -160,6 +160,11 @@
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle">
+        🌙
+    </button>
+
     <!-- Login Form -->
     <div class="container" id="loginForm">
         <h2>Admin Portal Login</h2>
@@ -279,8 +284,8 @@
                 </select>
                 <input type="date" id="auditStartDate" placeholder="Start Date">
                 <input type="date" id="auditEndDate" placeholder="End Date">
-                <button onclick="filterAuditLogs()">Filter</button>
-                <button onclick="RoleManagementApp.exportAudit()">Export CSV</button>
+                <button class="audit-action-btn" onclick="filterAuditLogs()">Filter</button>
+                <button class="audit-action-btn" onclick="RoleManagementApp.exportAudit()">Export CSV</button>
             </div>
             <div id="auditLogsContainer"></div>
         </div>
@@ -366,6 +371,38 @@
                 }
             } catch (error) {
                 console.error('Error filtering audit logs:', error);
+            }
+        }
+
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        let currentMode = localStorage.getItem('themeMode') || 'lightMode';
+        
+        // Apply saved theme on load
+        document.body.setAttribute('data-theme', currentMode);
+        updateToggleButton();
+
+        themeToggle.onclick = function() {
+            if (currentMode === 'lightMode') {
+                currentMode = 'darkMode';
+            } else {
+                currentMode = 'lightMode';
+            }
+            
+            document.body.setAttribute('data-theme', currentMode);
+            localStorage.setItem('themeMode', currentMode);
+            updateToggleButton();
+            
+            console.log('Theme switched to:', currentMode);
+        };
+
+        function updateToggleButton() {
+            if (currentMode === 'darkMode') {
+                themeToggle.textContent = '🌙';
+                themeToggle.style.background = 'rgba(0,0,0,0.5)';
+            } else {
+                themeToggle.textContent = '☀️';
+                themeToggle.style.background = 'rgba(255,255,255,0.2)';
             }
         }
     </script>

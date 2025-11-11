@@ -61,13 +61,13 @@ const RoleManagementApp = {
         document.getElementById('compareRoles')?.addEventListener('click', () => this.compareRoles());
     },
 
-    openWizard(roleId = null) {
+    async openWizard(roleId = null) {
         this.currentStep = 1;
         this.roleData = {};
         this.selectedUsers = [];
         
         if (roleId) {
-            this.loadRoleData(roleId);
+            await this.loadRoleData(roleId);
         }
 
         document.getElementById('roleWizard').classList.remove('hidden');
@@ -91,6 +91,11 @@ const RoleManagementApp = {
                 const role = await response.json();
                 this.roleData = role;
                 this.currentRole = roleId;
+                
+                // Load assigned users for this role
+                if (role.assignedUsers && role.assignedUsers.length > 0) {
+                    this.selectedUsers = role.assignedUsers.map(u => u._id || u);
+                }
             }
         } catch (error) {
             console.error('Error loading role:', error);
@@ -100,6 +105,10 @@ const RoleManagementApp = {
     nextStep() {
         if (this.validateStep()) {
             this.currentStep++;
+            if(this.roleData.inheritPermissions) {
+                this.currentStep++;
+                this.roleData.inheritPermissions = false;
+            }
             this.renderStep();
         }
     },
@@ -543,10 +552,18 @@ const RoleManagementApp = {
 
             if (response.ok) {
                 const logs = await response.json();
-                this.displayAuditLogs(logs);
+                if (logs && logs.length > 0) {
+                    this.displayAuditLogs(logs);
+                } else {
+                    alert('No audit logs found for this role.');
+                }
+            } else {
+                const error = await response.json();
+                alert(`Error loading audit logs: ${error.message || 'Unknown error'}`);
             }
         } catch (error) {
             console.error('Error loading audit logs:', error);
+            alert('Failed to load audit logs. Check console for details.');
         }
     },
 

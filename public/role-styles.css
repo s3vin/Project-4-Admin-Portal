@@ -54,7 +54,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
-    background: #667eea;
+    background: rgb(50,50,50);
     color: white;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .wizard-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000 0%, #111 100%);
     color: white;
     padding: 20px 30px;
     border-radius: 10px 10px 0 0;
@@ -133,7 +133,7 @@
 #wizardContent h3 {
     color: #333;
     margin-bottom: 20px;
-    border-bottom: 2px solid #667eea;
+    border-bottom: 2px solid rgb(50,50,50);
     padding-bottom: 10px;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000 0%, #111 100%);
     color: white;
 }
 
@@ -222,7 +222,7 @@
 .available-users h4,
 .selected-users h4 {
     margin-top: 0;
-    color: #667eea;
+    color: rgb(50,50,50);
 }
 
 .user-item {
@@ -250,7 +250,7 @@
     padding: 5px 15px;
     border: none;
     border-radius: 4px;
-    background: #667eea;
+    background: rgb(50,50,50);
     color: white;
     cursor: pointer;
     font-size: 12px;
@@ -270,7 +270,7 @@
 
 .review-summary h4 {
     margin-top: 0;
-    color: #667eea;
+    color: rgb(50,50,50);
 }
 
 .review-summary p {
@@ -334,7 +334,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    color: #667eea;
+    color: rgb(50,50,50);
 }
 
 .audit-log-item p {
@@ -362,8 +362,8 @@
 
 .role-column h3 {
     margin-top: 0;
-    color: #667eea;
-    border-bottom: 2px solid #667eea;
+    color: rgb(50,50,50);
+    border-bottom: 2px solid rgb(50,50,50);
     padding-bottom: 10px;
 }
 
@@ -435,14 +435,19 @@
     border-bottom: 3px solid transparent;
     transition: all 0.3s;
 }
-
+body[data-theme="darkMode"] .dashboard-tabs button {
+    color: #ccc;
+}
+body[data-theme="lightMode"] .dashboard-tabs button {
+    color: #666;
+}
 .dashboard-tabs button.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: rgb(50,50,50);
+    border-bottom-color: rgb(50,50,50);
 }
 
 .dashboard-tabs button:hover {
-    color: #667eea;
+    color: rgb(50,50,50);
 }
 
 .tab-content {
@@ -455,4 +460,258 @@
 
 .hidden {
     display: none !important;
+}
+
+/* Theme Toggle Button */
+#themeToggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    width: 100px;
+    height: 50px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    font-size: 12px;
+}
+
+/* Dark Mode Styles */
+body[data-theme="darkMode"] {
+    background: linear-gradient(135deg,  #0f163f 0%, #1C3A5C 100%) !important;
+}
+
+body[data-theme="darkMode"] .wizard-header {
+    background: linear-gradient(135deg, #87CEEB 0%, #FFFFFF 100%) !important;
+}
+
+body[data-theme="darkMode"] .audit-action-btn {
+    background: linear-gradient(135deg, #0f163f 0%, #1C3A5C 100%) !important;
+    border: white 1px solid;
+}
+
+body[data-theme="lightMode"] .audit-action-btn {
+    background: linear-gradient(135deg, #87CEEB 0%, #FFFFFF 100%) !important;
+    border: rgb(100, 100, 100) 1px solid;
+}
+
+/* Container Dark Mode Styles */
+body[data-theme="darkMode"] .container {
+    background: #2a2a2a;
+    color: #ffffff;
+}
+
+body[data-theme="darkMode"] .container h2 {
+    color: #ffffff;
+}
+
+body[data-theme="darkMode"] .container label {
+    color: #cccccc;
+}
+
+body[data-theme="darkMode"] .container input {
+    background: #616161;
+    color: white;
+    border-color: #444444;
+}
+
+/* Container Light Mode Styles */
+body[data-theme="lightMode"] .container {
+    background: white;
+    color: #333;
+}
+
+body[data-theme="lightMode"] .container h2 {
+    color: #333;
+}
+
+body[data-theme="lightMode"] .container label {
+    color: #333;
+}
+
+body[data-theme="lightMode"] .container input {
+    background: white;
+    color: #333;
+    border-color: #ddd;
+}
+
+body[data-theme="darkMode"] .container input {
+    background: white;
+    color: #333;
+    border-color: #ddd;
+}
+body[data-theme="darkMode"] .user-info p{
+    color: white;
+}
+
+body[data-theme="lightMode"] .user-info p{
+    color: black;
+}
+body[data-theme="darkMode"] .user-info {
+    background: #3a3a3a;
+    border: 1px solid #555;
+    color: white;
+}
+body[data-theme="lightMode"] .dashboard-tabs {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    color: black;
+}
+body[data-theme="darkMode"] .dashboard-tabs {
+    background: #2a2a2a;
+    border: 1px solid #555;
+    color: white;
+}
+body[data-theme="lightMode"] .users-list {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    color: black;
+}
+body[data-theme="darkMode"] .users-list {
+    background: #2a2a2a;
+    border: 1px solid #555;
+    color: white;
+}
+body[data-theme="lightMode"] .audit-filters input{
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    color: black;
+}
+body[data-theme="darkMode"] .audit-filters input{
+    background: #2a2a2a;
+    border: 1px solid #555;
+    color: white;
+}
+body[data-theme="lightMode"] .audit-filters select{
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    color: black;
+}
+body[data-theme="darkMode"] .audit-filters select {
+    background: #2a2a2a;
+    border: 1px solid #555;
+    color: white;
+}
+body[data-theme="darkMode"] .audit-log-item p, 
+body[data-theme="darkMode"] .audit-log-item small,
+body[data-theme="darkMode"] .audit-log-item strong,
+body[data-theme="darkMode"] .audit-log-item span,
+body[data-theme="darkMode"] .audit-log-item {
+    background: #3a3a3a;
+    
+    color: white;
+}
+body[data-theme="lightMode"] .audit-log-item p, 
+body[data-theme="lightMode"] .audit-log-item small, 
+body[data-theme="lightMode"] .audit-log-item strong,
+body[data-theme='lightMode'] .audit-log-item span,
+body[data-theme="lightMode"] .audit-log-item {
+    background: #f8f9fa;
+    
+    color: black;
+}
+body[data-theme="lightMode"] .role-card,body[data-theme="lightMode"] .role-card h3{
+    background: #f8f9fa;
+    color: black;
+}
+body[data-theme="darkMode"] .role-card, body[data-theme="darkMode"] .role-card h3 {
+     background: #3a3a3a;
+    
+    color: white;
+}
+
+/* Wizard Light/Dark Mode */
+body[data-theme="lightMode"] .wizard-header {
+    background: linear-gradient(135deg, #87CEEB 0%, #FFFFFF 100%) !important;
+    color: #333;
+}
+
+body[data-theme="darkMode"] .wizard-header {
+    background: linear-gradient(135deg, #0f163f 0%, #1C3A5C 100%) !important;
+    color: white;
+}
+
+body[data-theme="lightMode"] .wizard-body {
+    background: white;
+    color: #333;
+}
+
+body[data-theme="darkMode"] .wizard-body {
+    background: #2a2a2a;
+    color: white;
+}
+
+body[data-theme="darkMode"] .wizard-body h3 {
+    color: white !important;
+    border-bottom-color: #555 !important;
+}
+body[data-theme="darkMode"] .form-group input {
+    color: white !important;
+    border-bottom-color: #888 !important;
+}
+body[data-theme="lightMode"] .wizard-footer {
+    background: #f8f9fa;
+    border-top-color: #ddd;
+}
+
+body[data-theme="darkMode"] .wizard-footer {
+    background: #1a1a1a;
+    border-top-color: #555;
+}
+
+/* Wizard Body Input Fields */
+body[data-theme="darkMode"] .wizard-body input[type="text"],
+body[data-theme="darkMode"] .wizard-body input[type="number"],
+body[data-theme="darkMode"] .wizard-body textarea,
+body[data-theme="darkMode"] .wizard-body select {
+    background: #b0b0b0 !important;
+    color: #333 !important;
+    border: 1px solid #888 !important;
+}
+
+body[data-theme="lightMode"] .wizard-body input[type="text"],
+body[data-theme="lightMode"] .wizard-body input[type="number"],
+body[data-theme="lightMode"] .wizard-body textarea,
+body[data-theme="lightMode"] .wizard-body select {
+    background: white !important;
+    color: #333 !important;
+    border: 1px solid #ddd !important;
+}
+
+body[data-theme="lightMode"] .wizard-body h4,
+body[data-theme="lightMode"] .wizard-body p,
+body[data-theme="lightMode"] .wizard-body strong {
+    color: #333 !important;
+}
+
+body[data-theme="darkMode"] .wizard-body h4,
+body[data-theme="darkMode"] .wizard-body p,
+body[data-theme="darkMode"] .wizard-body strong {
+    color: white !important;
+}
+
+/* Review Summary Light/Dark Mode */
+body[data-theme="lightMode"] .review-summary {
+    background: #f8f9fa !important;
+}
+
+body[data-theme="darkMode"] .review-summary {
+    background: #3a3a3a !important;
+}
+
+body[data-theme="lightMode"] .review-summary h4,
+body[data-theme="lightMode"] .review-summary p,
+body[data-theme="lightMode"] .review-summary strong {
+    color: #333 !important;
+}
+
+body[data-theme="darkMode"] .review-summary h4,
+body[data-theme="darkMode"] .review-summary p,
+body[data-theme="darkMode"] .review-summary strong {
+    color: white !important;
 }
