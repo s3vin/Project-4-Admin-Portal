@@ -223,11 +223,11 @@
 
         <!-- Overview Tab -->
         <div id="overview-tab" class="tab-content active">
-            <div class="users-list" id="usersListContainer">
-                <h3>All Users</h3>
-                <div id="usersList"></div>
-            </div>
+        <div class="users-list">
+            <h3>Dashboard Overview</h3>
+        <p>Welcome to the admin portal</p>
         </div>
+    </div>
 
         <!-- Role Management Tab -->
         <div id="roles-tab" class="tab-content">
@@ -261,7 +261,7 @@
         <!-- Users Tab -->
         <div id="users-tab" class="tab-content">
             <h3>User Management</h3>
-            <div id="usersManagement"></div>
+            <div id="usersList"></div>  <!-- Keep this! -->
         </div>
 
         <!-- Audit Trail Tab -->
@@ -309,6 +309,8 @@
                 initRoleManagement();
             } else if (tabName === 'audit') {
                 loadAuditLogs();
+            } else if (tabName === 'users') {
+                loadAllUsers();
             }
         }
 
