@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Login</title>
+    <link rel="stylesheet" href="role-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-form a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .success {
+            background: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #dashboard {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        #dashboard h2 {
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .user-info p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .users-list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .user-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="container" id="loginForm">
+        <h2>Admin Portal Login</h2>
+        <div id="loginMessage"></div>
+        <form id="login">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="toggle-form">
+            Don't have an account? <a href="#" id="showRegister">Register</a>
+        </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="container hidden" id="registerForm">
+        <h2>Create Account</h2>
+        <div id="registerMessage"></div>
+        <form id="register">
+            <div class="form-group">
+                <label for="registerUsername">Username</label>
+                <input type="text" id="registerUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" required minlength="6">
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <div class="toggle-form">
+            Already have an account? <a href="#" id="showLogin">Login</a>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="container hidden" id="dashboard" style="max-width: 1200px;">
+        <h2>Admin Dashboard</h2>
+        <div class="user-info">
+            <h3>Welcome, <span id="userName"></span>!</h3>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+            <p><strong>Role:</strong> <span id="userRole"></span></p>
+        </div>
+
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('roles')">Role Management</button>
+            <button class="tab-btn" onclick="showTab('users')">Users</button>
+            <button class="tab-btn" onclick="showTab('audit')">Audit Trail</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview-tab" class="tab-content active">
+            <div class="users-list" id="usersListContainer">
+                <h3>All Users</h3>
+                <div id="usersList"></div>
+            </div>
+        </div>
+
+        <!-- Role Management Tab -->
+        <div id="roles-tab" class="tab-content">
+            <!-- Roles List View -->
+            <div id="rolesListView">
+                <div id="rolesContainer"></div>
+            </div>
+
+            <!-- Role Wizard (Hidden by default) -->
+            <div id="roleWizard" class="hidden">
+                <div class="wizard-container">
+                    <div class="wizard-header">
+                        <h2>Role Management Wizard</h2>
+                        <button class="close-wizard" id="closeWizard">&times;</button>
+                    </div>
+                    <div class="wizard-body">
+                        <div class="step-indicator" id="stepIndicator">Step 1 of 5</div>
+                        <div id="wizardContent"></div>
+                    </div>
+                    <div class="wizard-footer">
+                        <button id="prevStep" class="btn-secondary">Previous</button>
+                        <div>
+                            <button id="nextStep" class="btn-primary">Next</button>
+                            <button id="saveRole" class="btn-primary" style="display: none;">Save Role</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Tab -->
+        <div id="users-tab" class="tab-content">
+            <h3>User Management</h3>
+            <div id="usersManagement"></div>
+        </div>
+
+        <!-- Audit Trail Tab -->
+        <div id="audit-tab" class="tab-content">
+            <h3>Audit Trail</h3>
+            <div class="audit-filters">
+                <select id="auditActionFilter">
+                    <option value="">All Actions</option>
+                    <option value="ROLE_CREATED">Role Created</option>
+                    <option value="ROLE_UPDATED">Role Updated</option>
+                    <option value="ROLE_DELETED">Role Deleted</option>
+                    <option value="USER_ASSIGNED">User Assigned</option>
+                    <option value="USER_REMOVED">User Removed</option>
+                    <option value="BULK_ASSIGNMENT">Bulk Assignment</option>
+                </select>
+                <input type="date" id="auditStartDate" placeholder="Start Date">
+                <input type="date" id="auditEndDate" placeholder="End Date">
+                <button onclick="filterAuditLogs()">Filter</button>
+                <button onclick="RoleManagementApp.exportAudit()">Export CSV</button>
+            </div>
+            <div id="auditLogsContainer"></div>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="role-management.js"></script>
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for specific tabs
+            if (tabName === 'roles') {
+                initRoleManagement();
+            } else if (tabName === 'audit') {
+                loadAuditLogs();
+            }
+        }
+
+        async function loadAuditLogs() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_URL}/audit?limit=50`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    displayAuditLogs(data.logs);
+                }
+            } catch (error) {
+                console.error('Error loading audit logs:', error);
+            }
+        }
+
+        function displayAuditLogs(logs) {
+            const container = document.getElementById('auditLogsContainer');
+            container.innerHTML = logs.map(log => `
+                <div class="audit-log-item">
+                    <div class="log-header">
+                        <strong>${log.action}</strong>
+                        <span>${new Date(log.createdAt).toLocaleString()}</span>
+                    </div>
+                    <p>${log.description}</p>
+                    <small>By: ${log.performedBy?.username || 'System'}</small>
+                </div>
+            `).join('') || '<p>No audit logs found</p>';
+        }
+
+        async function filterAuditLogs() {
+            const action = document.getElementById('auditActionFilter').value;
+            const startDate = document.getElementById('auditStartDate').value;
+            const endDate = document.getElementById('auditEndDate').value;
+
+            const params = new URLSearchParams();
+            if (action) params.append('action', action);
+            if (startDate) params.append('startDate', startDate);
+            if (endDate) params.append('endDate', endDate);
+
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${API_URL}/audit?${params.toString()}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    displayAuditLogs(data.logs);
+                }
+            } catch (error) {
+                console.error('Error filtering audit logs:', error);
+            }
+        }
+    </script>
+</body>
+</html>
