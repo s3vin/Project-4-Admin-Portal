@@ -541,10 +541,21 @@ body[data-theme="lightMode"] .container input {
 }
 
 body[data-theme="darkMode"] .container input {
-    background: white;
-    color: #333;
-    border-color: #ddd;
+    background: #b0b0b0 !important;
+    color: #333 !important;
+    border-color: #888 !important;
 }
+
+body[data-theme="lightMode"] .container button {
+    background: linear-gradient(135deg, #4598c9 0%, #ffffff 100%);
+    color: white;
+}
+
+body[data-theme="darkMode"] .container button {
+    background: linear-gradient(135deg, #0f163f 0%, #1C3A5C 100%) !important;
+    color: white !important;
+}
+
 body[data-theme="darkMode"] .user-info p{
     color: white;
 }

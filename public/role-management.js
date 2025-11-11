@@ -46,19 +46,27 @@ const RoleManagementApp = {
 
     attachEventListeners() {
         // Wizard navigation
-        document.getElementById('nextStep')?.addEventListener('click', () => this.nextStep());
-        document.getElementById('prevStep')?.addEventListener('click', () => this.prevStep());
-        document.getElementById('saveRole')?.addEventListener('click', () => this.saveRole());
+        const nextStepBtn = document.getElementById('nextStep');
+        const prevStepBtn = document.getElementById('prevStep');
+        const saveRoleBtn = document.getElementById('saveRole');
+        
+        if (nextStepBtn) nextStepBtn.onclick = () => this.nextStep();
+        if (prevStepBtn) prevStepBtn.onclick = () => this.prevStep();
+        if (saveRoleBtn) saveRoleBtn.onclick = () => this.saveRole();
 
         // Role list actions
-        document.getElementById('createNewRole')?.addEventListener('click', () => this.openWizard());
-        document.getElementById('closeWizard')?.addEventListener('click', () => this.closeWizard());
+        const createNewRoleBtn = document.getElementById('createNewRole');
+        const closeWizardBtn = document.getElementById('closeWizard');
+        
+        if (createNewRoleBtn) createNewRoleBtn.onclick = () => this.openWizard();
+        if (closeWizardBtn) closeWizardBtn.onclick = () => this.closeWizard();
 
         // User search
         document.getElementById('userSearch')?.addEventListener('input', (e) => this.searchUsers(e.target.value));
 
         // Compare roles
-        document.getElementById('compareRoles')?.addEventListener('click', () => this.compareRoles());
+        const compareRolesBtn = document.getElementById('compareRoles');
+        if (compareRolesBtn) compareRolesBtn.onclick = () => this.compareRoles();
     },
 
     async openWizard(roleId = null) {
